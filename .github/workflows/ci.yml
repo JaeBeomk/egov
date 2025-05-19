@@ -1,3 +1,4 @@
+runs-on: self-hosted
 name: Maven Build & Harbor Push
 
 on:
