@@ -1,4 +1,4 @@
-
+#  Description: GitHub Actions CI/CD Workflow
 name: Maven Build & Harbor Push
 
 on:
@@ -16,7 +16,7 @@ jobs:
     - name: Java 설정
       uses: actions/setup-java@v3
       with:
-        java-version: '17' # 필요시 버전 수정
+        java-version: '17'
         distribution: 'temurin'
 
     - name: Maven 빌드
