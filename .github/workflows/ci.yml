@@ -1,0 +1,32 @@
+name: Maven Build & Harbor Push
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 저장소 체크아웃
+      uses: actions/checkout@v3
+
+    - name: Java 설정
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17' # 필요시 버전 수정
+        distribution: 'temurin'
+
+    - name: Maven 빌드
+      run: mvn clean package -DskipTests
+
+    - name: Harbor 로그인
+      run: echo "${{ secrets.Harbor_PASSWORD }}" | docker login -u ${{secrets.PRIVATE_REGISTRY}} "${{ secrets.Harbor_USERNAME }}" --password-stdin
+
+    - name: Harbor 이미지 빌드
+      run: |
+        docker build -t ${{secrets.PRIVATE_REGISTRY}}/egov/github-action:latest .
+
+    - name: Harbor 이미지 푸시
+      run: docker push ${{secrets.PRIVATE_REGISTRY}}/egov/github-action:latest
