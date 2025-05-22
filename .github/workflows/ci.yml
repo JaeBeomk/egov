@@ -23,7 +23,7 @@ jobs:
       run: mvn clean package -DskipTests
 
     - name: Harbor 로그인
-      echo "openmaru" | docker login 192.168.200.123 -u admin --password-stdin
+      run: echo "openmaru" | docker login 192.168.200.123 -u admin --password-stdin
       #run: echo "${{ secrets.Harbor_PASSWORD }}" | docker login "${{ secrets.PRIVATE_REGISTRY }}" -u  "${{ secrets.Harbor_USERNAME }}" --password-stdin
 
     - name: Harbor 이미지 빌드
