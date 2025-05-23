@@ -29,7 +29,9 @@ jobs:
     - name: Harbor 이미지 빌드
       run: |
         pwd
+        ls -alrt
         cp target/ROOT.war app.war
+        cp -r deployments/* .
         docker build -t "${{ secrets.PRIVATE_REGISTRY }}"/egov/github-action:latest .
 
     - name: Harbor 이미지 푸시
